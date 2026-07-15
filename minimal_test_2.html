@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Isolation Test v2</title>
+</head>
+<body style="font-family: sans-serif; max-width: 560px; margin: 60px auto; padding: 0 20px;">
+  <h1>Submission Isolation Test v2</h1>
+  <p>createMinimalTestForm() now creates THREE fields. Click each button separately, then check DevTools \u2192 Network tab for that request's status code, and check the response sheet for which columns actually got filled in.</p>
+
+  <!-- STEP 1: paste your values from the Apps Script log here -->
+  <script>
+    const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSeLBP5FbucNpQaN6ak807Yr0jbWjpJL1YTUWS-dfLUxqkkqiQ/formResponse";
+    const VALIDATED_ENTRY_ID = "entry.1906462327";
+    const MC_ENTRY_ID = "entry.1055488430";
+  </script>
+
+  <h2>Test A — regex-validated text field</h2>
+  <p>Sends a value that matches the ARC/YY/NNNN pattern exactly (ARC/20/6081) to the validated field only.</p>
+  <button class="testBtn" data-mode="validated" style="font-size: 16px; padding: 12px 24px; cursor: pointer;">Send Test A</button>
+  <p id="statusA" style="margin-top: 10px; font-family: monospace;"></p>
+
+  <h2>Test B — multiple-choice field</h2>
+  <p>Sends "A" (a valid choice) to the multiple-choice field only.</p>
+  <button class="testBtn" data-mode="mc" style="font-size: 16px; padding: 12px 24px; cursor: pointer;">Send Test B</button>
+  <p id="statusB" style="margin-top: 10px; font-family: monospace;"></p>
+
+  <script>
+    document.querySelectorAll('.testBtn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const mode = btn.dataset.mode;
+        const statusEl = document.getElementById(mode === 'validated' ? 'statusA' : 'statusB');
+        statusEl.textContent = 'Sending...';
+
+        const body = new URLSearchParams();
+        if (mode === 'validated') {
+          body.append(VALIDATED_ENTRY_ID, 'ARC/20/6081');
+        } else {
+          body.append(MC_ENTRY_ID, 'A');
+        }
+
+        try {
+          await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
+          statusEl.textContent = 'Fetch completed (check Network tab status + response sheet for the real result).';
+        } catch (err) {
+          statusEl.textContent = 'Fetch threw an error: ' + err.message;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
