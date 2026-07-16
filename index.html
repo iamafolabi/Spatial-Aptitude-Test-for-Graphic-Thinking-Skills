@@ -365,25 +365,26 @@ const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSdfPgfbK6izGtzfXuU
 // e.g. "https://script.google.com/macros/s/AKfycb.../exec"
 const DUPLICATE_CHECK_ENDPOINT = "https://script.google.com/macros/s/AKfycby6SEDiNgQHt5N1J6jEGjB2gZ4KqqxkIdnbFpJqA1YntjSCF5YsPYLCNIUF_h3v6WOAhw/exec";
 
-// entry IDs from the fresh-start results form (2026-07-15 10:13,
-// verified end-to-end via getFormInfo() + a manual test submission
-// before this was wired back into the HTML).
-const ENTRY_MATRIC = "entry.1104261232";
+// entry IDs obtained via Google's own "Get pre-filled link" feature
+// (the ONLY reliable source — Apps Script's item.getId() does NOT
+// correspond to the real entry.XXX submission parameter, confirmed
+// by a 0/23 match against these Google-verified values).
+const ENTRY_MATRIC = "entry.1050353989";
 const ENTRY_ITEMS = [
   // MR 1-6
-  "entry.1760239483", "entry.1621702468", "entry.1671653510",
-  "entry.453693579",  "entry.57584711",   "entry.402526505",
+  "entry.714494872",  "entry.64805117",   "entry.1724540990",
+  "entry.304313884",  "entry.758081778",  "entry.1544875701",
   // SV 1-6
-  "entry.1681478667", "entry.2127131331", "entry.430982810",
-  "entry.1755499668", "entry.1542196978", "entry.982860015",
+  "entry.1783102887", "entry.1497274888", "entry.2046073549",
+  "entry.66040374",   "entry.926507430",  "entry.1899573421",
   // PT 1-6
-  "entry.1334221749", "entry.2091695747", "entry.2065005283",
-  "entry.2054259971", "entry.2098082117", "entry.819690100"
+  "entry.1927651075", "entry.169833997",  "entry.1327512558",
+  "entry.592968117",  "entry.1044925358", "entry.1790205691"
 ];
-const ENTRY_SCORE_MR    = "entry.281041374";
-const ENTRY_SCORE_SV    = "entry.292691996";
-const ENTRY_SCORE_PT    = "entry.213745225";
-const ENTRY_SCORE_TOTAL = "entry.562406828";
+const ENTRY_SCORE_MR    = "entry.58582419";
+const ENTRY_SCORE_SV    = "entry.1216551755";
+const ENTRY_SCORE_PT    = "entry.478621996";
+const ENTRY_SCORE_TOTAL = "entry.1338884097";
 
 // ---- Section / timing / answer-key configuration ----
 const SECTION_DEFS = [
